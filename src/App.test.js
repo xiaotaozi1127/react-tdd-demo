@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
+import {replaceCapitalCamelcaseColorName} from './App';
 
 test('button has initial color', () => {
   render(<App />);
@@ -64,4 +65,18 @@ test("button turns gray when disabled", ()=>{
 
   fireEvent.click(checkbox)
   expect(button).toHaveStyle('background-color:gray')
+})
+
+describe("space before camel-case capital letters", ()=> {
+  test("works for single word", ()=>{
+    expect(replaceCapitalCamelcaseColorName("Red")).toBe("Red");
+  })
+
+  test("works for two camelcase words", ()=>{
+    expect(replaceCapitalCamelcaseColorName("MednightBlue")).toBe("Mednight Blue");
+  })
+
+  test("works for multiple camel case words", ()=>{
+    expect(replaceCapitalCamelcaseColorName("MediumVioletRed")).toBe("Medium Violet Red");
+  })
 })
